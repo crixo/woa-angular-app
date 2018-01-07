@@ -1,0 +1,8 @@
+<pazienti-list 
+    [dataSource]="dataSource" 
+    [totalCount]="totalCount"
+    (onDeleteCustomer)="delete($event)"
+    (onPageSwitch)="switchPage($event)"
+    ></pazienti-list>
+
+<a mat-raised-button color="primary" href="" [routerLink]="['/details']">Crea Paziente</a>
