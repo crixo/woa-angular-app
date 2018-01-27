@@ -7,12 +7,14 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module'
 import { PazientiModule } from './pazienti/pazienti.module';
+import { WelcomeComponent } from './home/welcome.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +22,8 @@ import { PazientiModule } from './pazienti/pazienti.module';
     BrowserAnimationsModule,
 
     RouterModule.forRoot(AppRoutes),
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
