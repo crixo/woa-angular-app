@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-
 
 import { AppComponent } from './app.component';
-import { AppRoutes } from './app.routing';
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module'
+import { SharedModule } from './shared/shared.module';
+
 import { PazientiModule } from './pazienti/pazienti.module';
 import { WelcomeComponent } from './home/welcome.component';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -18,12 +17,13 @@ import { WelcomeComponent } from './home/welcome.component';
   ],
   imports: [
     BrowserModule,
-    PazientiModule,
     BrowserAnimationsModule,
 
-    RouterModule.forRoot(AppRoutes),
+    AppRoutingModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+
+    PazientiModule
   ],
   providers: [],
   bootstrap: [AppComponent]

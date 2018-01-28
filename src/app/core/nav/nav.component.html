@@ -1,0 +1,19 @@
+<header>
+  <nav>
+      <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+        <div fxFlex="40">
+            <a mat-raised-button
+            routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            *ngFor="let item of menuItems" routerLink="{{item.link}}">
+                {{item.name}}
+            </a>
+        </div>
+        <div fxFlex="20" id="today">
+            TODO: add date
+        </div>
+        <div fxFlex class="text-right">
+            TODO: search
+       </div>
+      </div>
+  </nav>
+</header>

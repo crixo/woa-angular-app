@@ -1,10 +1,12 @@
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
-import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { PazientiPageComponent } from './pazienti/pages/pazienti-page.component';
 
 
-export const AppRoutes: Routes = [
+export const appRoutes: Routes = [
     // { path: '', redirectTo: 'all', pathMatch: 'full' },
     // {
     //     path: '**',
@@ -21,3 +23,15 @@ export const AppRoutes: Routes = [
     { path: '', redirectTo: 'welcome', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent }    
 ];
+
+@NgModule({
+    imports: [
+      RouterModule.forRoot(appRoutes)
+    ],
+    exports: [
+      RouterModule
+    ]
+  })
+  
+  export class AppRoutingModule {
+  }

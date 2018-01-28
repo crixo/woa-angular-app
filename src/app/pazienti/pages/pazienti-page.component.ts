@@ -23,12 +23,18 @@ export class PazientiPageComponent implements OnInit {
         private paginationService: PaginationService) { }
 
     ngOnInit(): void {
-        this.getAllCustomers();
+        this.getPazienti();
     }
 
     switchPage(event: PageEvent) {
         this.paginationService.change(event);
-        this.getAllCustomers();
+        this.getPazienti();
+    }
+
+    filter(filter: string){
+        console.log('Filter value: '+filter)
+        this.paginationService.filter = filter;
+        this.getPazienti();
     }
 
     delete(customer: Paziente) {
@@ -38,8 +44,8 @@ export class PazientiPageComponent implements OnInit {
             });
     }
 
-    getAllCustomers() {
-        this.customerDataService.getAll<Paziente[]>()
+    getPazienti() {
+        this.customerDataService.getPagedPazienti()
             .subscribe((result: any) => {
               console.log(result)
               console.log(result.body.totalRecords)

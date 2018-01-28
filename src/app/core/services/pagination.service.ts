@@ -19,12 +19,22 @@ export class PaginationService {
         return this.paginationModel.pageSize;
     }
 
+    get filter(): string{
+        return this.paginationModel.filter;
+    }
+
+    set filter(filter: string){
+        this.paginationModel.filter = filter;
+        this.paginationModel.pageIndex = 0;
+    }
+
     constructor() {
         this.paginationModel = new PaginationModel();
     }
 
     change(pageEvent: PageEvent) {
-        this.paginationModel.pageIndex = pageEvent.pageIndex + 1;
+        console.log(pageEvent);
+        this.paginationModel.pageIndex = pageEvent.pageIndex;// + 1;
         this.paginationModel.pageSize = pageEvent.pageSize;
         this.paginationModel.allItemsLength = pageEvent.length;
     }

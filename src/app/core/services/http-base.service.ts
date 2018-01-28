@@ -8,7 +8,7 @@ import { PaginationService } from './pagination.service';
 export class HttpBaseService {
 
     private headers = new HttpHeaders();
-    private endpoint = `http://localhost:8010/api/pazienti/`;
+    private endpoint = `http://localhost:8010/api`;
 
     constructor(
         private httpClient: HttpClient,
@@ -18,29 +18,39 @@ export class HttpBaseService {
         this.headers = this.headers.set('Accept', 'application/json');
     }
 
-    getAll<T>() {
-        const mergedUrl = `${this.endpoint}` +
+    getPages<T>(entityName: string) {
+        const skip = (this.paginationService.page) * this.paginationService.pageCount;
+        const take = this.paginationService.pageCount;
+        const filter = this.paginationService.filter;
+        let mergedUrl = `${this.endpoint}` +
             //`page/?page=${this.paginationService.page}&pageCount=${this.paginationService.pageCount}`;
-            `page/${this.paginationService.page * this.paginationService.pageCount}/${this.paginationService.pageCount}`;
+            `/${entityName}/page/${skip}/${take}`;
+        if(filter!==undefined){
+            mergedUrl += `?filter=${filter}`;
+        }
 
         return this.httpClient.get<T>(mergedUrl, { observe: 'response' });
     }
 
-    getSingle<T>(id: number) {
-        return this.httpClient.get<T>(`${this.endpoint}${id}`);
+    getSingle<T>(entityName: string, id: number) {
+        const mergedUrl = `${this.endpoint}/${entityName}/${id}`;
+        return this.httpClient.get<T>(mergedUrl);
     }
 
-    add<T>(toAdd: T) {
-        return this.httpClient.post<T>(this.endpoint, toAdd, { headers: this.headers });
+    add<T>(entityName: string, toAdd: T) {
+        const mergedUrl = `${this.endpoint}/${entityName}`;
+        return this.httpClient.post<T>(mergedUrl, toAdd, { headers: this.headers });
     }
 
-    update<T>(id: number, toUpdate: T) {
-        return this.httpClient.put<T>(`${this.endpoint}${id}`,
+    update<T>(entityName: string, id: number, toUpdate: T) {
+        const mergedUrl = `${this.endpoint}/${entityName}/${id}`;
+        return this.httpClient.put<T>(mergedUrl,
             toUpdate,
             { headers: this.headers });
     }
 
-    delete(id: number) {
-        return this.httpClient.delete(`${this.endpoint}${id}`);
+    delete(entityName: string, id: number) {
+        const mergedUrl = `${this.endpoint}/${entityName}/${id}`;
+        return this.httpClient.delete(mergedUrl);
     }
 }

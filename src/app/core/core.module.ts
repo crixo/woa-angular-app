@@ -1,18 +1,25 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-//import { MaterialModule } from './material.module';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { throwIfAlreadyLoaded } from './module-import-guard';
 
-// import { CustomerDataService } from './services/customer-data.service';
+import { SharedModule } from '../shared/shared.module';
+
 import { PaginationService } from './services/pagination.service';
 
+import { NavComponent } from './nav/nav.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 @NgModule({
-    imports: [HttpClientModule],
-    exports: [],
-    declarations: [],
+    imports: [SharedModule],
+    exports: [
+        NavComponent, PageNotFoundComponent],
+    declarations: [ NavComponent, PageNotFoundComponent ],
     providers: [
-        // CustomerDataService,
         PaginationService
     ],
 })
 
-export class CoreModule { }
+export class CoreModule {
+    constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+      throwIfAlreadyLoaded(parentModule, 'CoreModule');
+    }
+  }

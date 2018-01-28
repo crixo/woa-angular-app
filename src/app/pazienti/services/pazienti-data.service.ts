@@ -6,6 +6,12 @@ import { HttpBaseService } from '../../core/services/http-base.service';
 @Injectable()
 export class PazientiDataService extends HttpBaseService {
 
+    private entityName: string = 'pazienti';
+
+    getPagedPazienti(){
+        return super.getPages<Paziente[]>(this.entityName);
+    }
+
     fireRequest(paziente: Paziente, method: string) {
 
         // const links = paziente.links
@@ -14,13 +20,13 @@ export class PazientiDataService extends HttpBaseService {
 
         switch (method) {
             case 'DELETE': {
-                return super.delete(paziente.id);
+                return super.delete(this.entityName, paziente.id);
             }
             case 'POST': {
-                return super.add<Paziente>(paziente);
+                return super.add<Paziente>(this.entityName, paziente);
             }
             case 'PUT': {
-                return super.update<Paziente>(paziente.id, paziente);
+                return super.update<Paziente>(this.entityName, paziente.id, paziente);
             }
             default: {
                 //console.log(`${links.method} not found!!!`);
