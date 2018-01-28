@@ -100,3 +100,11 @@ snack-bar-container {
 .full-width {
   width: 100%;
 }
+
+.top-right {
+  position: fixed;
+  top: 68px;
+  right: 20px;
+  color: white;
+  z-index: 1000;
+}
